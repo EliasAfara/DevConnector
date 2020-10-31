@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Social network for developers",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server",
     "server": "nodemon server"
