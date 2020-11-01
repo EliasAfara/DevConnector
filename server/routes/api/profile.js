@@ -233,7 +233,7 @@ router.put(
 );
 /************************************************************/
 /**
- * @route    DELETE api/profile/experience
+ * @route    DELETE api/profile/experience/:exp_id
  * @desc     Delete user profile experience
  * @access   PRIVATE
  */
@@ -248,6 +248,93 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
       .indexOf(req.params.exp_id);
 
     profile.experience.splice(removeIndex, 1);
+
+    await profile.save();
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('500 Internal server error');
+  }
+});
+/************************************************************/
+/**
+ * @route    PUT api/profile/education
+ * @desc     Add profile education
+ * @access   PRIVATE
+ */
+router.put(
+  '/education',
+  [
+    auth,
+    [
+      check('school', 'School is required').not().isEmpty(),
+      check('degree', 'Degree is required').not().isEmpty(),
+      check('fieldofstudy', 'Field of study is required').not().isEmpty(),
+      check('from', 'From date is required and needs to be from the past')
+        .not()
+        .isEmpty()
+        .custom((value, { req }) => (req.body.to ? value < req.body.to : true)),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Destructuring
+    const {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description,
+    } = req.body;
+
+    // Create an object with the data that the user submits (school: school)
+    const newEdu = {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.education.unshift(newEdu);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+/************************************************************/
+/**
+ * @route    DELETE api/profile/education/:edu_id
+ * @desc     Delete user profile education
+ * @access   PRIVATE
+ */
+router.delete('/education/:edu_id', auth, async (req, res) => {
+  try {
+    // getting profile of the logged in user
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    // Getting the index of the education which will be deleted
+    const removeIndex = profile.education
+      .map((item) => item.id)
+      .indexOf(req.params.edu_id);
+
+    profile.education.splice(removeIndex, 1);
 
     await profile.save();
     res.json(profile);
