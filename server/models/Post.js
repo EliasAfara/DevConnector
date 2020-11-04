@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users', // reference Users model, so that a user is conneted to a post( delete personal posts)
+    ref: 'user', // reference Users model, so that a user is conneted to a post( delete personal posts)
   },
   text: {
     type: String,
@@ -22,7 +22,7 @@ const PostSchema = new Schema({
       user: {
         // a user can only like post once
         type: Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'user',
       },
     },
   ],
@@ -30,7 +30,7 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'user',
       },
       text: {
         type: String,
