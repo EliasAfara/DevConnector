@@ -14,12 +14,12 @@ const User = require('../../models/User');
 
 /**
  * @route    #reqtype: GET | #endpoint: api/auth
- * @desc     test route
+ * @desc     Get user by token
  * @access   Public (No token needed)
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password'); // Getting the user data without the password
     res.json(user);
   } catch (err) {
     console.log(err.message);
@@ -29,7 +29,7 @@ router.get('/', auth, async (req, res) => {
 
 /**
  * @route    #requesttype: POST | #endpoint: api/auth
- * @desc     Authenticate user & get token
+ * @desc     Authenticate user & get token "LOGIN"
  * @access   Public
  */
 router.post(
