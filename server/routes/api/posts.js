@@ -86,7 +86,7 @@ router.get('/:id', auth, async (req, res) => {
 });
 /************************************************************/
 /**
- * @route    #reqtype: DELETE | #endpoint: api/posts/;id
+ * @route    #reqtype: DELETE | #endpoint: api/posts/:id
  * @desc     Delete a post by ID
  * @access   Private
  */
@@ -102,7 +102,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     // Check user (post.user is an object whule req.user.id is a string)
     if (post.user.toString() !== req.user.id) {
-      return res.status(404).json({ msg: 'User not authorized' });
+      return res.status(401).json({ msg: 'User not authorized' });
     } else {
       await post.remove();
     }
@@ -194,4 +194,84 @@ router.put('/unlike/:id', auth, async (req, res) => {
   }
 });
 
+/************************************************************/
+/**
+ * @route    #reqtype: POST | #endpoint: api/posts/comment/:id
+ * @desc     Add a comment on a post
+ * @access   Private
+ */
+router.post(
+  '/comment/:id',
+  [auth, [check('text', 'Text is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      const post = await Post.findById(req.params.id);
+
+      const newComment = {
+        text: req.body.text,
+        name: user.name, // comes from user
+        avatar: user.avatar,
+        user: req.user.id, // we want user id
+      };
+
+      post.comments.unshift(newComment);
+
+      await post.save();
+
+      res.json(post.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('500 Internal server error');
+    }
+  }
+);
+/************************************************************/
+/**
+ * @route    #reqtype: DELETE | #endpoint: api/posts/comment/:id/:comment_id"
+ * @desc     Delete comment
+ * @access   Private
+ */
+router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Pull out comment
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+
+    // make sure comment exists
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist' });
+    }
+
+    // Check user
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'user is not authorized' });
+    }
+
+    post.comments.splice(
+      post.comments.findIndex(
+        (comment) =>
+          comment.user.toString() === req.user.id &&
+          comment.id === req.params.comment_id
+      ),
+      1
+    );
+
+    await post.save();
+
+    res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('500 Internal server error');
+  }
+});
 module.exports = router;
