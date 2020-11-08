@@ -19,12 +19,12 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       console.log('Passwords do not match');
     } else {
-      console.log(formData);
+      console.log('success');
     }
   };
 
@@ -84,7 +84,7 @@ const Register = () => {
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
-        Already have an account? <Link to='login'>Sign In</Link>
+        Already have an account? <Link to='/login'>Sign In</Link>
       </p>
     </>
   );
