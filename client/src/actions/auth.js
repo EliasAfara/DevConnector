@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -32,7 +33,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// Register User
+// Register User Action
 export const register = ({ name, email, password }) => async (dispatch) => {
   const config = {
     headers: {
@@ -61,7 +62,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   }
 };
 
-// Login User
+// Login User Action
 export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
@@ -89,4 +90,9 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+// Logout Action / Clear Profile
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
 };
