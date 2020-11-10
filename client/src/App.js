@@ -46,6 +46,11 @@ function App() {
                 path='/create-profile'
                 component={CreateProfile}
               />
+              <PrivateRoute
+                exact
+                path='/edit-profile'
+                component={CreateProfile}
+              />
               <Route component={NotFound} />
             </Switch>
           </section>
