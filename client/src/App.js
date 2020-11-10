@@ -18,6 +18,8 @@ import setAuthToken from './utils/setAuthToken';
 // CSS
 import './App.css';
 import NotFound from './components/layout/NotFound';
+import AddEducation from './components/profile-forms/AddEducation';
+import AddExperience from './components/profile-forms/AddExperience';
 
 // Check if token avaiable
 if (localStorage.token) {
@@ -50,6 +52,16 @@ function App() {
                 exact
                 path='/edit-profile'
                 component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/add-experience'
+                component={AddExperience}
+              />
+              <PrivateRoute
+                exact
+                path='/add-education'
+                component={AddEducation}
               />
               <Route component={NotFound} />
             </Switch>
