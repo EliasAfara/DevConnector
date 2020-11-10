@@ -16,6 +16,7 @@ import setAuthToken from './utils/setAuthToken';
 
 // CSS
 import './App.css';
+import NotFound from './components/layout/NotFound';
 
 // Check if token avaiable
 if (localStorage.token) {
@@ -39,6 +40,7 @@ function App() {
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <Route component={NotFound} />
             </Switch>
           </section>
         </>
