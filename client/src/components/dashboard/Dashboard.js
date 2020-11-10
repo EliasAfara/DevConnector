@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
+import DashboardActions from './DashboardActions';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -24,9 +25,11 @@ const Dashboard = ({
       </p>
       {profile !== null ? (
         <>
-          {/* <DashboardActions />
+          {
+            <DashboardActions /> /*
           <Experience experience={profile.experience} />
-          <Education education={profile.education} /> */}
+          <Education education={profile.education} /> */
+          }
 
           {/* <div className='my-2'>
             <button className='btn btn-danger' onClick={() => deleteAccount()}>
