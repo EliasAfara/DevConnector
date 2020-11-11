@@ -21,6 +21,7 @@ import './App.css';
 import NotFound from './components/layout/NotFound';
 import AddEducation from './components/profile-forms/AddEducation';
 import AddExperience from './components/profile-forms/AddExperience';
+import Profile from './components/profile/Profile';
 
 // Check if token avaiable
 if (localStorage.token) {
@@ -44,6 +45,7 @@ function App() {
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
+              <Route exact path='/profile/:id' component={Profile} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
