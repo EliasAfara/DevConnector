@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'user', // reference Users model, so that a user is conneted to a post( delete personal posts)
   },
   text: {
     type: String,
@@ -22,7 +21,6 @@ const PostSchema = new Schema({
       user: {
         // a user can only like post once
         type: Schema.Types.ObjectId,
-        ref: 'user',
       },
     },
   ],
@@ -30,7 +28,6 @@ const PostSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
       },
       text: {
         type: String,
@@ -54,4 +51,4 @@ const PostSchema = new Schema({
   },
 });
 
-module.exports = Post = mongoose.model('post', PostSchema);
+module.exports = mongoose.model('post', PostSchema);
