@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
+import Education from './Education';
+import Expercience from './Expercience';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -14,6 +16,8 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
+
+  const deleteAccount = () => {};
 
   return loading && profile === null ? (
     <Spinner />
@@ -26,16 +30,23 @@ const Dashboard = ({
       {profile !== null ? (
         <>
           {
-            <DashboardActions /> /*
-          <Experience experience={profile.experience} />
-          <Education education={profile.education} /> */
+            <>
+              <DashboardActions />
+              <Expercience experience={profile.experience} />
+              <Education education={profile.education} />{' '}
+            </>
           }
 
-          {/* <div className='my-2'>
-            <button className='btn btn-danger' onClick={() => deleteAccount()}>
-              <i className='fas fa-user-minus' /> Delete My Account
-            </button>
-          </div> */}
+          {
+            <div className='my-2'>
+              <button
+                className='btn btn-danger'
+                onClick={() => deleteAccount()}
+              >
+                <i className='fas fa-user-minus' /> Delete My Account
+              </button>
+            </div>
+          }
         </>
       ) : (
         <>
