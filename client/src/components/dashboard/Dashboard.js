@@ -26,13 +26,30 @@ const Dashboard = ({
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
+
       {profile !== null ? (
         <>
           {
             <>
               <DashboardActions />
-              <Expercience experience={profile.experience} />
-              <Education education={profile.education} />{' '}
+              <br />
+              <Link to={`/profile/${user._id}`} className='btn btn-primary'>
+                View Profile
+              </Link>
+              {profile.experience.length > 0 ? (
+                <>
+                  <Expercience experience={profile.experience} />
+                </>
+              ) : (
+                <h4>No experience credentials</h4>
+              )}
+              {profile.education.length > 0 ? (
+                <>
+                  <Education education={profile.education} />{' '}
+                </>
+              ) : (
+                <h4>No education credentials</h4>
+              )}
             </>
           }
 
