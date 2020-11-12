@@ -1,0 +1,19 @@
+{
+  "name": "devconnector",
+  "version": "1.0.0",
+  "description": "> Social network for developers",
+  "main": "index.js",
+  "scripts": {
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EliasAfara/DevConnector.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EliasAfara/DevConnector/issues"
+  },
+  "homepage": "https://github.com/EliasAfara/DevConnector#readme"
+}
