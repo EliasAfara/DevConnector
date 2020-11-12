@@ -27,6 +27,7 @@ export const GET_PROFILES = 'GET_PROFILES';
 
 // Github types
 export const GET_REPOS = 'GET_REPOS';
+export const NO_REPOS = 'NO_REPOS';
 
 // Post types
 export const GET_POSTS = 'GET_POSTS';
