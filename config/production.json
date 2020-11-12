@@ -1,0 +1,7 @@
+{
+    "mongoURI": "mongodb+srv://elias123:elias123@devconnector.qpjgo.mongodb.net/test?retryWrites=true&w=majority",
+
+    "jwtSecret": "EliasAfaraSecretToken",
+
+    "githubToken": "5f0b9715db68023c622e38c57d243ec87a11935b"
+}
