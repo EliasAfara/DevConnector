@@ -37,3 +37,7 @@ export const ADD_POST = 'ADD_POST';
 
 // Like & Unlike types
 export const UPDATE_LIKES = 'UPDATE_LIKES';
+
+// Comment types
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
