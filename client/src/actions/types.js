@@ -31,6 +31,7 @@ export const GET_REPOS = 'GET_REPOS';
 // Post types
 export const GET_POSTS = 'GET_POSTS';
 export const POST_ERROR = 'POST_ERROR';
+export const DELETE_POST = 'DELETE_POST';
 
 // Like & Unlike types
 export const UPDATE_LIKES = 'UPDATE_LIKES';
