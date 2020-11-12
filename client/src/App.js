@@ -71,8 +71,8 @@ function App() {
               />
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/posts/:id' component={Post} />
-              <Route component={NotFound} />
             </Switch>
+            <Route component={NotFound} />
           </section>
         </>
       </Router>
